@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDomains extends Migration
+class CreateChangeLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateDomains extends Migration
      */
     public function up()
     {
-        Schema::create('domains', function (Blueprint $table) {
+        Schema::create('change_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('api_key');
+            $table->string('table');
+            $table->bigInteger('table_id');
+            $table->text('value');
+            $table->enum('type',['created','updated','deleted','restored']);
+            $table->string('ip');
             $table->timestamps();
             $table->softDeletes();
             $table->boolean('is_active')->nullable();
@@ -34,6 +37,6 @@ class CreateDomains extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domains');
+        Schema::dropIfExists('change_logs');
     }
 }
