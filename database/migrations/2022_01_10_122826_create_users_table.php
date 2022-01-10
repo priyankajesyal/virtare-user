@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->foreign('roleId')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->boolean('isActive')->default(1);
-            $table->boolean('isDelete')->nullable();
+            $table->boolean('isDelete')->nullable(0);
             $table->bigInteger('createdBy')->unsigned()->nullable();
             $table->bigInteger('updatedBy')->unsigned()->nullable();
             $table->bigInteger('deletedBy')->unsigned()->nullable();
@@ -34,7 +34,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('createdAt');
             $table->timestamp('updatedAt');
             $table->timestamp('deletedAt');
-            
         });
     }
 
