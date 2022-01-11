@@ -16,3 +16,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+
+$router->get('globalCodeCategory','Api\v1\GlobalCodeController@globalCodeCategory');
+$router->post('globalCode','Api\v1\GlobalCodeController@createGlobalCode');
+$router->put('globalCode[/{id}]','Api\v1\GlobalCodeController@updateGlobalCode');
+$router->delete('globalCode[/{id}]','Api\v1\GlobalCodeController@deleteGlobalCode');
+
+

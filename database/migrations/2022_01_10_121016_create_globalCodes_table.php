@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+
 
 class CreateGlobalCodesTable extends Migration
 {
@@ -19,18 +22,17 @@ class CreateGlobalCodesTable extends Migration
             $table->foreign('globalCodeCategoryId')->references('id')->on('globalCodeCategories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->text('description');
-            $table->text('dataType');
-            $table->boolean('isActive');
-            $table->boolean('isDelete');
-            $table->bigInteger('createdBy')->unsigned();
+            $table->boolean('isActive')->default(1);
+            $table->boolean('isDelete')->default(0);
+            $table->bigInteger('createdBy')->unsigned()->nullable();
             $table->foreign('createdBy')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('updatedBy')->unsigned();
+            $table->bigInteger('updatedBy')->unsigned()->nullable();
             $table->foreign('updatedBy')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('deletedBy')->unsigned();
+            $table->bigInteger('deletedBy')->unsigned()->nullable();
             $table->foreign('deletedBy')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamp('createdAt');
-            $table->timestamp('updatedAt');
-            $table->timestamp('deletedAt');
+            $table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('deletedAt')->nullable();
         });
     }
 
