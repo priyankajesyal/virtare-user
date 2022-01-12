@@ -34,9 +34,9 @@ class GlobalCodeCategoryTransformer extends TransformerAbstract
     public function transform($data): array
     {
         return [
+            'id'=>$data->id,
 			'name'=>$data->name,
             'globalCode'=> fractal()->collection($data->globalCode)->transformWith(new GlobalCodeTransformer())->serializeWith(new \Spatie\Fractalistic\ArraySerializer())->toArray()
-
 		];
     }
 }
